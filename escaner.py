@@ -10,7 +10,7 @@ RUTAS_NMAP = [
 
 def encontrar_nmap_funcional():
     """Encuentra qué ruta de nmap funciona"""
-    print("🔍 Buscando Nmap...")
+    print(" Buscando Nmap...")
     
     for ruta in RUTAS_NMAP:
         if os.path.exists(ruta):
@@ -28,13 +28,13 @@ def encontrar_nmap_funcional():
                     print(f"✅ Nmap encontrado via 'where': {ruta}")
                     return ruta
     except Exception as e:
-        print(f"❌ Error buscando nmap: {e}")
+        print(f" Error buscando nmap: {e}")
     
     return None
 
 def verificar_instalacion_nmap():
     """Verifica si Nmap está instalado correctamente"""
-    print("📋 Verificando instalación de Nmap...")
+    print(" Verificando instalación de Nmap...")
     
     # Verificar en el registro de Windows
     try:
@@ -54,7 +54,7 @@ def verificar_instalacion_nmap():
     return None
 
 # PROGRAMA PRINCIPAL
-print("🚀 INICIANDO CONFIGURACIÓN NMAP")
+print(" INICIANDO CONFIGURACIÓN NMAP")
 print("=" * 50)
 
 # Método 1: Buscar en rutas comunes
@@ -66,27 +66,27 @@ if not ruta_nmap:
 
 # Método 3: Pedir al usuario
 if not ruta_nmap:
-    print("\n❌ No se pudo encontrar Nmap automáticamente")
-    print("💡 Por favor, busca manualmente nmap.exe:")
+    print("\n No se pudo encontrar Nmap automáticamente")
+    print(" Por favor, busca manualmente nmap.exe:")
     print("1. Abre el Explorador de Archivos")
     print("2. Navega a C:\\Program Files (x86)\\Nmap\\")
     print("3. Busca el archivo 'nmap.exe'")
     print("4. Copia la ruta completa y pégala aquí")
     
-    ruta_manual = input("📁 Ingresa la ruta completa a nmap.exe: ").strip()
+    ruta_manual = input(" Ingresa la ruta completa a nmap.exe: ").strip()
     
     # Limpiar la ruta (quitar comillas si las tiene)
     ruta_manual = ruta_manual.replace('"', '')
     
     if os.path.exists(ruta_manual):
         ruta_nmap = ruta_manual
-        print(f"✅ Ruta válida: {ruta_nmap}")
+        print(f" Ruta válida: {ruta_nmap}")
     else:
-        print("❌ La ruta no existe. Verifica e intenta de nuevo.")
+        print(" La ruta no existe. Verifica e intenta de nuevo.")
         exit()
 
 try:
-    print(f"\n⚙️  Configurando Nmap con: {ruta_nmap}")
+    print(f"\n Configurando Nmap con: {ruta_nmap}")
     
     # Crear el scanner
     scanner = nmap.PortScanner()
@@ -95,10 +95,10 @@ try:
     scanner.nmap_path = ruta_nmap
     
     # Verificar que funciona obteniendo la versión
-    print("🔍 Probando Nmap...")
+    print(" Probando Nmap...")
     version_info = scanner.nmap_version()
-    print(f"✅ Nmap configurado correctamente!")
-    print(f"📋 Versión: {version_info}")
+    print(f" Nmap configurado correctamente!")
+    print(f"Versión: {version_info}")
     
     # Ahora hacer el escaneo
     print("\n" + "=" * 50)
@@ -107,7 +107,7 @@ try:
     if not ip:
         ip = "127.0.0.1"  # Localhost por defecto
     
-    print(f"⏳ Escaneando {ip}...")
+    print(f" Escaneando {ip}...")
     
     # Escaneo simple de puertos comunes
     scanner.scan(ip, '22,80,443,3389', arguments='-sS --host-timeout 30s')
@@ -115,9 +115,9 @@ try:
     hosts = scanner.all_hosts()
     
     if hosts:
-        print(f"\n✅ Escaneo completado!")
+        print(f"\n Escaneo completado!")
         for host in hosts:
-            print(f"📡 Host: {host}")
+            print(f" Host: {host}")
             print(f"   Estado: {scanner[host].state()}")
             
             # Mostrar puertos abiertos
@@ -126,18 +126,18 @@ try:
                 abiertos = [str(puerto) for puerto, info in puertos.items() if info['state'] == 'open']
                 
                 if abiertos:
-                    print(f"   🔓 Puertos {protocolo} abiertos: {', '.join(abiertos)}")
+                    print(f"    Puertos {protocolo} abiertos: {', '.join(abiertos)}")
                 else:
-                    print(f"   🔒 No hay puertos {protocolo} abiertos")
+                    print(f"    No hay puertos {protocolo} abiertos")
     else:
-        print("❌ No se encontraron hosts")
+        print(" No se encontraron hosts")
         
 except nmap.nmap.PortScannerError as e:
-    print(f"❌ Error de Nmap: {e}")
-    print("\n🔧 SOLUCIONES:")
+    print(f" Error de Nmap: {e}")
+    print("\n SOLUCIONES:")
     print("1. Verifica que Nmap esté instalado correctamente")
     print("2. Ejecuta como Administrador")
     print("3. Verifica tu firewall/antivirus")
     
 except Exception as e:
-    print(f"❌ Error inesperado: {e}")
+    print(f" Error inesperado: {e}")
