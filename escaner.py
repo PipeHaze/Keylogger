@@ -2,9 +2,8 @@ import nmap
 import os
 import subprocess
 
-# Diferentes formas de escribir la ruta - prueba una por una
 RUTAS_NMAP = [
-    r"C:\Program Files (x86)\Nmap\nmap.exe",  # ← USA ESTA PRIMERO
+    r"C:\Program Files (x86)\Nmap\nmap.exe",  
     
 ]
 
@@ -14,7 +13,7 @@ def encontrar_nmap_funcional():
     
     for ruta in RUTAS_NMAP:
         if os.path.exists(ruta):
-            print(f"✅ Archivo encontrado: {ruta}")
+            print(f" Archivo encontrado: {ruta}")
             return ruta
     
     # Si no se encuentra, buscar en todo el sistema
@@ -25,7 +24,7 @@ def encontrar_nmap_funcional():
             for ruta in rutas:
                 ruta = ruta.strip()
                 if os.path.exists(ruta):
-                    print(f"✅ Nmap encontrado via 'where': {ruta}")
+                    print(f" Nmap encontrado via 'where': {ruta}")
                     return ruta
     except Exception as e:
         print(f" Error buscando nmap: {e}")
@@ -44,12 +43,12 @@ def verificar_instalacion_nmap():
             installdir = winreg.QueryValueEx(key, "InstallDir")[0]
             ruta_nmap = os.path.join(installdir, "nmap.exe")
             if os.path.exists(ruta_nmap):
-                print(f"✅ Nmap encontrado via registro: {ruta_nmap}")
+                print(f" Nmap encontrado via registro: {ruta_nmap}")
                 return ruta_nmap
         except:
             pass
     except ImportError:
-        print("ℹ️  No se pudo verificar el registro de Windows")
+        print("ℹ  No se pudo verificar el registro de Windows")
     
     return None
 
@@ -102,7 +101,7 @@ try:
     
     # Ahora hacer el escaneo
     print("\n" + "=" * 50)
-    ip = input("🎯 Ingresa IP a escanear (ej. 127.0.0.1, google.com): ").strip()
+    ip = input(" Ingresa IP a escanear (ej. 127.0.0.1, google.com): ").strip()
     
     if not ip:
         ip = "127.0.0.1"  # Localhost por defecto
